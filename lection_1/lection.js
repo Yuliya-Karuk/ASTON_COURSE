@@ -82,59 +82,66 @@
 // Явное приведение типов
 
 // К строке:
-// console.log(String(123))
-// console.log(String(-12.3))
-// console.log(String(null))
-// console.log(String(undefined))
-// console.log(String(true))
-// console.log(String(false))
-// console.log(String(function name() {}))
-// console.log(String({}))
-// console.log(String({ key: 42 }))
-// console.log(String([]))
-// console.log(String([1, 2]))
+// console.log(String(123))         // '123'
+// console.log(String(-12.3))       // '-12.3'
+// console.log(String(null))        // 'null'
+// console.log(String(undefined))       // 'undefined'
+// console.log(String(true))        // 'true'
+// console.log(String(false))       // 'false'
+// console.log(String(function name() {}))      // 'function name() {}'
+// console.log(String({}))      // '[object Object]'
+// console.log(String({ key: 42 }))         // '[object Object]'
+// console.log(String([]))          // ''
+// console.log(String([1, 2]))          //'1,2'
+// console.log(String(Symbol('my symbol')))         // 'Symbol(my symbol)'
+// console.log('' + Symbol('my symbol'))            // ошибка TypeError !!!!!!
 
-// console.log(Number('123'))
-// console.log(Number('123.4'))
-// console.log(Number('123,4'))
-// console.log(Number(''))
-// console.log(Number(null))
-// console.log(Number(undefined))
-// console.log(Number(true))
-// console.log(Number(false))
-// console.log(Number(function () {}))
-// console.log(Number({}))
-// console.log(Number([]))
-// console.log(Number([1]))
-// console.log(Number([1, 2]))
+// console.log(Number('123'))       // 123
+// console.log(Number('123.4'))         // 123.4
+// console.log(Number('123,4'))         // NaN
+// console.log(Number(''))          // 0
+// console.log(Number(null))        // 0
+// console.log(Number(undefined))       // NaN
+// console.log(Number(true))        // 1
+// console.log(Number(false))       // 0
+// console.log(Number(function () {}))      //Nan
+// console.log(Number({}))          // NaN
+// console.log(Number([]))          // 0
+// console.log(Number([1]))         // 1
+// console.log(Number([1, 2]))      // NaN
+// Number(Symbol('my symbol'))    // Ошибка TypeError
+// +Symbol('123')                 // Ошибка TypeError
 
-// console.log(Boolean(''))
-// console.log(Boolean('string'))
-// console.log(Boolean('false'))
-// console.log(Boolean(0))
-// console.log(Boolean(42))
-// console.log(Boolean(-42))
-// console.log(Boolean(NaN))
-// console.log(Boolean(null))
-// console.log(Boolean(undefined))
-// console.log(Boolean(function () {}))
-// console.log(Boolean({}))
-// console.log(Boolean({ key: 42 }))
-// console.log(Boolean([]))
-// console.log(Boolean([1, 2]))
+
+// console.log(Boolean(''))     //false
+// console.log(Boolean('string'))       //true
+// console.log(Boolean('false'))        //true
+// console.log(Boolean(0))      //false
+// console.log(Boolean(42))     //true
+// console.log(Boolean(-42))        //true
+// console.log(Boolean(NaN))        //false
+// console.log(Boolean(null))       //false
+// console.log(Boolean(undefined))      //false
+// console.log(Boolean(function () {}))     //true
+// console.log(Boolean({}))         //true
+// console.log(Boolean({ key: 42 }))        //true
+// console.log(Boolean([]))         //true
+// console.log(Boolean([1, 2]))         //true
 
 // Сравнение типов
-// console.log(null === undefined)
-// console.log(null == undefined)
-// console.log(NaN == NaN)
-// console.log([] == []);
-// console.log(true == 1);
-// console.log(false == 0);
-// console.log(false == '');
+// console.log(null === undefined)      //false
+// console.log(null == undefined)       //true
+// console.log(NaN == NaN)          //false
+// console.log([] == []);           //false
+// console.log(true == 1);          //true
+// console.log(false == 0);         //true
+// console.log(false == '');            //true
 
-// null > 0
-// null == 0 ;
-// null >= 0 ;
+// console.log(null > 0);       //false
+// console.log(null == 0);      //false
+// console.log(null === 0);     //false
+// console.log(null >= 0);      //true
+//Согласно спецификации ECMAScript, null при нестрогом сравнении равен только undefined и ничему больше.
 //
 
 // Причина в том, что нестрогое равенство и сравнения > < >= <= работают по-разному.
@@ -146,18 +153,23 @@
 // они равны друг другу и не равны ничему другому. Поэтому (2) null == 0 ложно.
 
 // Неявное преобразование типов
-// console.log('11' + 25)
-// console.log(null + 10)
-// console.log(undefined + null)
-// console.log([] + 1)
-// console.log({} + 1)
+// console.log('11' + 25)      //1125
+// console.log(null + 10)      //10
+// console.log(undefined + null)       //NaN
+// console.log([] + 1)         //1
+// console.log({} + 1)         //[object Object]1
 
-// console.log(null + false  - true + 25 + +[])
+//Если один из операндов является строкой, JavaScript попытается преобразовать другой операнд к строке и выполнить конкатенацию.
+//Если один из операндов не является строкой, JavaScript попытается преобразовать оба операнда в числа и выполнить сложение
+
+// console.log(null + false  - true + 25 + +[])         // 24
+
 const isEqualInt = 2 === 2
 let sum = [] - isEqualInt + undefined - null
-// console.log(sum)
-// console.log('ba' + +[1,2,3])
-// console.log(Array(5).join('wat' - 1) + ' Batman!')
+// console.log(sum)         //NaN
+
+// console.log('ba' + +[1,2,3])             //baNaN
+// console.log(Array(5).join('wat' - 1) + ' Batman!')      //NaNNaNNaNNaN Batman!
 
 // Логические операторы
 // ! && || ??
@@ -166,13 +178,13 @@ let sum = [] - isEqualInt + undefined - null
 // если значение левого операнда содержит null или undefined, в противном случае возвращается значение левого операнда.
 
 // const check1 = 1 && false || '';
-// console.log(check1)
+// console.log(check1)                 //''
 // const check2 = [] || 'hello';
-// console.log(check2)
+// console.log(check2)             //[]
 // const check3 = [] && {} || 123;
-// console.log(check3)
+// console.log(check3)             //{}
 // const check4 =   0 || 'world' || [] && null || false
-// console.log(check4)
+// console.log(check4)         //world
 
 // let a = null
 // if (a !== undefined && a !== null) {
@@ -210,10 +222,10 @@ let sum = [] - isEqualInt + undefined - null
 //         var value = a[i];
 //         console.log(value);
 //     }
-//
+
 //     console.log(`Outside loop ${value}`)
 // }
-//
+
 // jumpOut()
 
 // function hoisting() {
