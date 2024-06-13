@@ -112,16 +112,17 @@ console.log(result2); // Вывод: 30
 // должен быть массивом чисел".
 
 function getUniqArray(arr) {
-    if (!Array.isArray(arr)) {
+    if (!Array.isArray(arr) ) {
         throw Error('Переданный аргумент должен быть массивом');
     }
-    if (!arr.every(el => typeof el === 'number')) {
+    if (!arr.every(el => typeof el === 'number' && !isNaN(el))) {
         throw Error('В getUniqArray был передан невалидный параметр. Аргумент arr должен быть массивом чисел');
     }
     return Array.from(new Set(arr));
 }
 
 console.log(getUniqArray([1, 2, 2, 4, 5]));
+// console.log(getUniqArray([1, 2, 2, 4, NaN]));
 // console.log(getUniqArray([1, 2, 2, '4', 5]));
 // console.log(getUniqArray('1, 2, 3'));
 
